@@ -7,7 +7,7 @@ class Parantheses(Node):
     # the implementation of Node
 
     def _indent_space(self) -> str:
-        return ' ' * (self.depth * Node.indent_step)
+        return ' ' * (self._depth * Node.indent_step)
 
     def emit_entry(self) -> str:
         return f"{self._indent_space()}{{\n"
@@ -23,10 +23,11 @@ class TestNode(unittest.TestCase):
         nodes = Parantheses()
         
         nodes.add_child(Parantheses()).add_child(Parantheses())
-        nodes.children[1].add_child(Parantheses()).add_child(Parantheses())
-        nodes.children[1].children[1].add_child(Parantheses()) 
+        nodes._children[1].add_child(Parantheses()).add_child(Parantheses())
+        nodes._children[1]._children[1].add_child(Parantheses()) 
 
-        right_result = """    {
+        right_result = """{
+    {
     }
     {
         {
@@ -36,7 +37,10 @@ class TestNode(unittest.TestCase):
             }
         }
     }
+}
 """
+        #print (nodes.emit_depth_first_order().split(" "))
+        #print (right_result.split(" "))
         assert (nodes.emit_depth_first_order() == right_result)
 
         pass  

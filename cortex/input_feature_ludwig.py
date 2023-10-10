@@ -3,6 +3,8 @@ input_feature_ludwig.py
 This module defines a Input Feature node for ludwig based pipeline
 """
 
+import pprint
+from cortex.node import Node
 
 class InputFeatureConfig:
     """Class to create and manage the configuration for input features.
@@ -62,3 +64,23 @@ class InputFeatureConfig:
             dict: The configured dictionary.
         """
         return self._config
+
+
+class InputFeatureLudwig(Node):
+    """Represents an InputFeatureLudwig node in AST"""
+
+    def __init__(self, inp_features: InputFeatureConfig):
+        super().__init__()  # Call parent class's __init__ method
+        self._inp_features = inp_features
+
+        self._code_template = "input_features = " + pprint.pformat(inp_features.get_config())
+
+
+    def emit_entry(self) -> str:
+        """Implementation of abstract method from parent class."""
+        return self._indent_space() + self._code_template + "\n"
+
+    def emit_exit(self) -> str:
+        """Implementation of abstract method from parent class."""
+        return ""
+
