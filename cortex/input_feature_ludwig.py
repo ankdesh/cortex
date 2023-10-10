@@ -7,7 +7,7 @@ import pprint
 from cortex.node import Node
 
 class InputFeatureConfig:
-    """Class to create and manage the configuration for input features.
+    """Class to create and manage the configuration for a single input feature.
     
     This class allows setting of values for a specific configuration dict
     and provides a function to return the configured dict.
@@ -69,16 +69,22 @@ class InputFeatureConfig:
 class InputFeatureLudwig(Node):
     """Represents an InputFeatureLudwig node in AST"""
 
-    def __init__(self, inp_features: InputFeatureConfig):
-        super().__init__()  # Call parent class's __init__ method
-        self._inp_features = inp_features
+    def __init__(self):
+        super().__init__()
+        self._inp_features = []
 
-        self._code_template = "input_features = " + pprint.pformat(inp_features.get_config())
-
+    def add_intput_feature(self, inp_feature: InputFeatureConfig):
+        self._inp_features.append(inp_feature) 
 
     def emit_entry(self) -> str:
         """Implementation of abstract method from parent class."""
-        return self._indent_space() + self._code_template + "\n"
+        code_template =  pprint.pformat([x.get_config() for x in self._inp_features])
+        #code_template = "{\n'input_features' : [\n" 
+        #for feature in self._inp_features:
+        #    code_template += pprint.pformat(feature.get_config())
+        #    code_template += ",\n"
+        #code_template += "]\n}"
+        return self._indent_space() + code_template + "\n"
 
     def emit_exit(self) -> str:
         """Implementation of abstract method from parent class."""

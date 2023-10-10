@@ -39,8 +39,7 @@ class TestNode(unittest.TestCase):
     }
 }
 """
-        #print (nodes.emit_depth_first_order().split(" "))
-        #print (right_result.split(" "))
+
         assert (nodes.emit_depth_first_order() == right_result)
 
         pass  

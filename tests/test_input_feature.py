@@ -33,20 +33,31 @@ class TestInputFeatureLudwig(unittest.TestCase):
 
     def setUp(self):
         # Create a fully configured InputFeatureConfig object
-        self.inp_features = InputFeatureConfig(name="age", type_feature="numerical")
-        self.inp_features.set_level("high")
-        self.inp_features.set_preprocessing(word_tokenizer="space")
-        self.inp_features.set_encoder(type_encoder="rnn", reduce_output="sum", trainable=False)
+        self.inp_feature = InputFeatureConfig(name="age", type_feature="numerical")
+        self.inp_feature.set_level("high")
+        self.inp_feature.set_preprocessing(word_tokenizer="space")
+        self.inp_feature.set_encoder(type_encoder="rnn", reduce_output="sum", trainable=False)
 
         # Create an InputFeatureLudwig object with the above config
-        self.ludwig_node = InputFeatureLudwig(self.inp_features)
+        self.ludwig_node = InputFeatureLudwig()
+        
+        #Add to the node twice
+        self.ludwig_node.add_intput_feature(self.inp_feature)
+        self.ludwig_node.add_intput_feature(self.inp_feature)
+
 
     def test_emit_entry(self):
         # Test if the emit_entry function returns the correct string
-        expected_output = """input_features = {'encoder': {'reduce_output': 'sum', 'trainable': False, 'type': 'rnn'},
- 'level': 'high',
- 'name': 'age',
- 'preprocessing': {'word_tokenizer': 'space'},
- 'type': 'numerical'}"""
+        expected_output = [{'encoder': {'reduce_output': 'sum', 'trainable': False, 'type': 'rnn'},
+                            'level': 'high',
+                            'name': 'age',
+                            'preprocessing': {'word_tokenizer': 'space'},
+                            'type': 'numerical'},
+                            {'encoder': {'reduce_output': 'sum', 'trainable': False, 'type': 'rnn'},
+                            'level': 'high',
+                            'name': 'age',
+                            'preprocessing': {'word_tokenizer': 'space'},
+                            'type': 'numerical'}]
+
         
-        self.assertEqual(self.ludwig_node.emit_entry().strip(), expected_output.strip())
+        self.assertEqual(eval(self.ludwig_node.emit_depth_first_order().strip()), expected_output )
