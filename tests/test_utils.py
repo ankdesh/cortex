@@ -1,6 +1,8 @@
 # Importing the unittest module to create test cases
 import unittest
-from cortex.utils import set_value
+import os
+import yaml
+from cortex.utils import set_value, dict_to_yaml_file
 
 # Create a test class inheriting from unittest.TestCase
 class TestSetNestedKeyValue(unittest.TestCase):
@@ -33,5 +35,19 @@ class TestSetNestedKeyValue(unittest.TestCase):
         d = {}
         self.assertFalse(set_value(d, 'a', 10))
 
-# Execute the unit tests
-unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(TestSetNestedKeyValue))
+# Create a test class for testing dict_to_yaml_file function
+class TestDictToYamlFile(unittest.TestCase):
+
+    def test_valid_dict(self):
+        """Test converting a valid dictionary to a YAML file."""
+        test_dict = {'a': 1, 'b': {'c': 2}}
+        test_file_path = '/tmp/test_valid_dict.yaml'
+        dict_to_yaml_file(test_dict, test_file_path)
+
+        # Check if the YAML file is created
+        self.assertTrue(os.path.exists(test_file_path))
+
+        # Read the created YAML file and check its contents
+        with open(test_file_path, 'r') as yaml_file:
+            loaded_dict = yaml.safe_load(yaml_file)
+        self.assertEqual(loaded_dict, test_dict)

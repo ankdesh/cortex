@@ -1,4 +1,4 @@
-
+import yaml
 
 
 def set_value(d, key, value):
@@ -26,3 +26,20 @@ def set_value(d, key, value):
 
     # If the key was not found at any depth
     return False
+
+
+def dict_to_yaml_file(dictionary, file_path):
+    """
+    Convert a dictionary to a YAML file.
+
+    Parameters:
+    - dictionary (dict): The dictionary to convert
+    - file_path (str): The path where the YAML file will be saved
+
+    Returns:
+    - None: The function writes the YAML file to the disk
+    """
+    # Open the file in write mode
+    with open(file_path, 'w') as yaml_file:
+        # Dump the dictionary to the YAML file
+        yaml.dump(dictionary, yaml_file)
