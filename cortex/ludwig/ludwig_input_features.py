@@ -20,19 +20,18 @@ class LudwigInputFeatures(ABC):
 
     def __init__(self,
                  name: str,
-                 type_: str,
-                 preprocessing: Dict[str, Any],
-                 encoder: Dict[str, Any],
-                 is_valid_preprocessing_key: Callable[[str, Any], bool],
-                 is_valid_encoder_key: Callable[[str, Any], bool]
+                 type_: str
                  ) -> None:
         """Initialize LudwigInputFeatures with given parameters."""
         self._name = name
         self._type = type_
-        self._preprocessing = preprocessing
-        self._encoder = encoder
-        self._is_valid_preprocessing_key = is_valid_preprocessing_key
-        self._is_valid_encoder_key = is_valid_encoder_key
+        
+        self._preprocessing = None
+        self._is_valid_preprocessing_key = None
+        
+        self._encoder = None # To be updated based on encoder_type
+        self._is_valid_encoder_key = None
+        
 
     def set_preprocessing_value(self, key: str, value: Any) -> bool:
         """Set a preprocessing key-value pair if valid."""
