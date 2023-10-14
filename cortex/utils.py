@@ -28,12 +28,12 @@ def set_value(d, key, value):
     return False
 
 
-def dict_to_yaml_file(dictionary, file_path):
+def dict_to_yaml_file(obj, file_path):
     """
-    Convert a dictionary to a YAML file.
+    Dump a python obj to a YAML file.
 
     Parameters:
-    - dictionary (dict): The dictionary to convert
+    - Python object (inp): The object to convert
     - file_path (str): The path where the YAML file will be saved
 
     Returns:
@@ -41,5 +41,5 @@ def dict_to_yaml_file(dictionary, file_path):
     """
     # Open the file in write mode
     with open(file_path, 'w') as yaml_file:
-        # Dump the dictionary to the YAML file
-        yaml.dump(dictionary, yaml_file)
+        # Dump the obj to the YAML file
+        yaml.dump(obj, yaml_file)

@@ -1,8 +1,9 @@
 import unittest
-from unittest.mock import Mock
-from cortex.ludwig.ludwig_input_features import LudwigInputFeatures
+
+from cortex.ludwig.input_features import LudwigInputFeatures
 from cortex.utils import set_value  
 from cortex.ludwig.number_feature import NumberInputFeature, encoder_defaults, encoder_validators
+from cortex.node import Node
 
 class TestLudwigInputFeatures(unittest.TestCase):
 
@@ -10,10 +11,6 @@ class TestLudwigInputFeatures(unittest.TestCase):
         """Initialize an instance for testing."""
         self.feature = LudwigInputFeatures(name="TestFeature", type_="number")
         
-        # Mock validation functions
-        self.feature._is_valid_preprocessing_key = Mock(return_value=True)
-        self.feature._is_valid_encoder_key = Mock(return_value=True)
-
     def test_init(self):
         """Test the __init__ method."""
         self.assertEqual(self.feature._name, "TestFeature")
@@ -61,4 +58,3 @@ class TestNumberInputFeature(unittest.TestCase):
         result = self.feature.set_encoder_value("dropout", "invalid_value")
         self.assertFalse(result)
         
-

@@ -4,7 +4,7 @@ This module defines a Input and Output Feature for Number format
 """
 
 import pprint
-from cortex.ludwig.ludwig_input_features import LudwigInputFeatures
+from cortex.ludwig.input_features import LudwigInputFeatures
 
 from abc import ABC, abstractmethod
 
@@ -18,7 +18,7 @@ class NumberInputFeature(LudwigInputFeatures):
         LudwigInputFeatures.__init__(self, name=name,
                                      type_= "number"
                                      )
-        self._preprocessing = number_input_preprocessing_default,
+        self._preprocessing = number_input_preprocessing_default
         self._is_valid_preprocessing_key = number_input_validate_preprocessing
         self._encoder = encoder_defaults["passthrough"]
         self._is_valid_encoder_key = encoder_validators["passthrough"]
