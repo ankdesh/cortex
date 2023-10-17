@@ -1,6 +1,6 @@
 """
-ludwig_features.py
-This module defines the base class for input, output Feature nodes for ludwig based pipeline
+input_features.py
+This module defines the base class for input feature nodes for ludwig based pipeline
 """
 
 from abc import ABC, abstractmethod

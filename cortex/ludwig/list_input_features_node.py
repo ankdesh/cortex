@@ -7,7 +7,6 @@ from typing import List
 
 from cortex.node import Node 
 from cortex.ludwig.input_features import LudwigInputFeatures
-from cortex.ludwig.number_feature import NumberInputFeature 
 
 class ListInputFeatures(Node):
     """
