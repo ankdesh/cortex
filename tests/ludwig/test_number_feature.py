@@ -1,22 +1,9 @@
 import unittest
 
-from cortex.ludwig.input_features import LudwigInputFeatures
 from cortex.utils import set_value  
 from cortex.ludwig.number_feature import NumberInputFeature, encoder_defaults, encoder_validators
+from cortex.ludwig.number_feature import NumberOutputFeature
 from cortex.node import Node
-
-class TestLudwigInputFeatures(unittest.TestCase):
-
-    def setUp(self):
-        """Initialize an instance for testing."""
-        self.feature = LudwigInputFeatures(name="TestFeature", type_="number")
-        
-    def test_init(self):
-        """Test the __init__ method."""
-        self.assertEqual(self.feature._name, "TestFeature")
-        self.assertEqual(self.feature._type, "number")
-        self.assertIsNone(self.feature._preprocessing)
-        self.assertIsNone(self.feature._encoder)
 
 # Creating a unittest class for NumberInputFeature
 class TestNumberInputFeature(unittest.TestCase):
@@ -58,3 +45,20 @@ class TestNumberInputFeature(unittest.TestCase):
         result = self.feature.set_encoder_value("dropout", "invalid_value")
         self.assertFalse(result)
         
+
+class TestNumberOutputFeature(unittest.TestCase):
+
+    def setUp(self):
+        # Initialize NumberOutputFeature object
+        self.feature = NumberOutputFeature (name='feature1')
+        
+    def test_set_decoder_value(self):
+        """Test setting decoder value."""
+        self.assertEqual(self.feature._decoder['type'], 'regressor')
+        self.assertTrue(self.feature.set_decoder_value('type', 'regressor'))
+        
+
+    def test_change_loss_type(self):
+        """Test setting loss value."""
+        self.assertTrue(self.feature.change_loss_type('huber'))
+        self.assertEqual(self.feature._loss['type'], 'huber')

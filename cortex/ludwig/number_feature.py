@@ -71,9 +71,9 @@ class NumberOutputFeature(LudwigOutputFeatures):
                 'root_mean_squared_percentage_error', 'huber'
         ]:
             # Replace with your decoder options
-            self._decoder = loss_defaults[loss_type]
+            self._loss = loss_defaults[loss_type]
             # Replace with your decoder validator
-            self._is_valid_decoder_key = loss_defaults[loss_type]
+            self._is_valid_loss_key = loss_defaults[loss_type]
             return True
         else:
             return False

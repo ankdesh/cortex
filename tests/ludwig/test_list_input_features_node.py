@@ -3,7 +3,7 @@ from cortex.ludwig.number_feature import NumberInputFeature
 from cortex.utils import dict_to_yaml_file
 
 import unittest
-from unittest.mock import Mock
+import yaml
 
 
 class TestListInputFeatures(unittest.TestCase):
@@ -28,7 +28,12 @@ class TestListInputFeatures(unittest.TestCase):
         list_input_features.add_feature(ip_feature0)
         list_input_features.add_feature(ip_feature1)
 
-        asd = list_input_features.get_list_input_features()
-        dict_to_yaml_file (asd,"/tmp/out.yaml")        
-        self.assertEqual(0,0)
+        write_file = list_input_features.get_list_input_features()
+        dict_to_yaml_file (write_file,"/tmp/out.yaml")
+        
+        read_input_features = None
+        with open("/tmp/out.yaml") as read_file: 
+            read_input_features = yaml.safe_load(read_file)
+
+        self.assertTrue (len(read_input_features) > 0)
     
