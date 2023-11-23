@@ -10,6 +10,7 @@ from cortex.ludwig.number_feature_attributes import preprocessing_default, prepr
 from cortex.ludwig.number_feature_attributes import decoder_validator, decoder_defaults, loss_defaults, loss_validators
 
 from abc import ABC, abstractmethod
+from copy import deepcopy
 
 
 class NumberInputFeature(LudwigInputFeatures):
@@ -18,11 +19,11 @@ class NumberInputFeature(LudwigInputFeatures):
     """
 
     def __init__(self, name):
-        """Initialize both parent classes."""
+        """Init"""
         LudwigInputFeatures.__init__(self, name=name, type_="number")
-        self._preprocessing = preprocessing_default
+        self._preprocessing = deepcopy(preprocessing_default)
         self._is_valid_preprocessing_key = preprocessing_validator
-        self._encoder = encoder_defaults["passthrough"]
+        self._encoder = deepcopy(encoder_defaults["passthrough"])
         self._is_valid_encoder_key = encoder_validators["passthrough"]
 
     def change_encoder_type(self, encoder_type: str) -> bool:
@@ -49,10 +50,10 @@ class NumberOutputFeature(LudwigOutputFeatures):
         """
         super().__init__(name=name, type_="number")
 
-        self._loss = loss_defaults["mean_squared_error"]
+        self._loss = deepcopy(loss_defaults["mean_squared_error"])
         self._is_valid_loss_key = loss_validators["mean_squared_error"]
 
-        self._decoder = decoder_defaults
+        self._decoder = deepcopy(decoder_defaults)
         self._is_valid_decoder_key = decoder_validator
 
     def change_loss_type(self, loss_type: str) -> bool:

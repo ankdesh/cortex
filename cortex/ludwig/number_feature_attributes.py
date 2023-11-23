@@ -10,7 +10,7 @@ from typing import Callable, Dict, Any
 preprocessing_default = {
     "missing_value_strategy": "fill_with_const",
     "normalization": "zscore",
-    "outlier_strategy": "null",
+    "outlier_strategy": "fill_with_mean",
     "fill_value": 0.0,
     "outlier_threshold": 3.0
 }
@@ -50,7 +50,7 @@ def preprocessing_validator(key, value):
     elif key == "outlier_strategy":
         options = [
             "fill_with_const", "fill_with_mode", "bfill", "ffill", "drop_row",
-            "fill_with_mean", "null"
+            "fill_with_mean"
         ]
         if value in options:
             return True

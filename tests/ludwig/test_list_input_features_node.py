@@ -29,10 +29,10 @@ class TestListInputFeatures(unittest.TestCase):
         list_input_features.add_feature(ip_feature1)
 
         write_file = list_input_features.get_list_input_features()
-        dict_to_yaml_file (write_file,"/tmp/out.yaml")
+        dict_to_yaml_file (write_file,"/tmp/in.yaml")
         
         read_input_features = None
-        with open("/tmp/out.yaml") as read_file: 
+        with open("/tmp/in.yaml") as read_file: 
             read_input_features = yaml.safe_load(read_file)
 
         self.assertTrue (len(read_input_features) > 0)

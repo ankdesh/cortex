@@ -28,6 +28,8 @@ share/python-wheels/
 *.egg
 MANIFEST
 virtualenvs/
+generated/
+results/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
