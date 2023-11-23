@@ -16,7 +16,7 @@ def get_inp_features() -> List:
         ip_feature = NumberInputFeature(inp_feature)
         list_input_features.add_feature(ip_feature)
 
-    return list_input_features.get_list_input_features()
+    return list_input_features
 
 def get_out_features() -> List:
     list_output_features = ListOutputFeatures()
@@ -24,18 +24,18 @@ def get_out_features() -> List:
         ip_feature = NumberOutputFeature(out_feature)
         list_output_features.add_feature(ip_feature)
 
-    return list_output_features.get_list_output_features()
+    return list_output_features
 
-def get_combiner() -> Dict:
+def get_combiner() -> Combiner:
     combiner = Combiner()
-    combiner.set_value("num_fc_layers", 5)
-    return combiner.get_combiner_values_dict()
+    return combiner
 
 if __name__ == "__main__":
 
-    config_list = {"input_features":get_inp_features(),
-                    "output_features":get_out_features(),
-                    "combiner": get_combiner()}
+    config_list = {"input_features":get_inp_features().get_list_input_features(),
+                    "output_features":get_out_features().get_list_output_features(),
+                    "combiner": get_combiner().get_combiner_values_dict()}
+
 
     dict_to_yaml_file (config_list,"cortex/generated/config_prime.yaml")
     
